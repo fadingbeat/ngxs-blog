@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ngxs-blog": {
+      "hosting": {
+        "ngxs-blog": [
+          "ngxs-blog"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ngxs-blog"
+  }
+}
