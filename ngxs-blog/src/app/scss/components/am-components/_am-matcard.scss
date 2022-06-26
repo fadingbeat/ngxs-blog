@@ -1,0 +1,6 @@
+mat-card {
+  &.mat-card.mat-focus-indicator {
+    display: flex;
+    position: absolute;
+  }
+}
