@@ -1,6 +1,14 @@
 mat-card {
   &.mat-card.mat-focus-indicator {
     display: flex;
-    position: absolute;
+    flex-direction: column;
+    position: relative;
+  }
+  & textarea {
+    &.mat-input-element.mat-form-field-autofill-control.ng-tns-c88-2 {
+      &.cdk-text-field-autofill-monitored {
+        height: 400px;
+      }
+    }
   }
 }
