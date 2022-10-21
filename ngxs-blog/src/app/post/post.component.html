@@ -3,19 +3,23 @@
   <h3>post.description</h3>
   <p>post.content</p>
 </mat-card> -->
+<form [formGroup]="postForm" (ngSubmit)="onSave()">
+  <div>
+    <mat-card>
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Content</mat-label>
+        <textarea matInput formControlName="content"></textarea>
+      </mat-form-field>
+      <button appearance=" fill" mat-raised-button color="accent">Save post</button>
+    </mat-card>
+  </div>
 
-<mat-card>
-  <mat-form-field appearance="fill">
-    <mat-label>Title</mat-label>
-    <input matInput>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Description</mat-label>
-    <input matInput>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Content</mat-label>
-    <textarea matInput></textarea>
-  </mat-form-field>
-  <button appearance="fill" mat-raised-button color="accent">Save post</button>
-</mat-card>
+</form>
