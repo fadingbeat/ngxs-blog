@@ -13,6 +13,7 @@ export const environment = {
     authDomain: 'ngxs-blog.firebaseapp.com',
     messagingSenderId: '548008698509',
   },
+  mockUrl: 'http://localhost:3000/ngxs-blog',
   production: false,
 };
 

@@ -23,9 +23,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PostState } from './post/state/post.state';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { HttpClientModule } from '@angular/common/http';
+import { HighlightDirective } from './config/directives/highlight.directive';
 
 @NgModule({
-  declarations: [AppComponent, PostComponent],
+  declarations: [AppComponent, PostComponent, HighlightDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,
