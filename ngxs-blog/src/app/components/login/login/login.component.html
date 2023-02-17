@@ -1,0 +1,13 @@
+<h5><u><i>Welcome to the login page</i></u></h5>
+<form class="component-display">
+  <mat-form-field appearance="fill">
+    <mat-label>User Name</mat-label>
+    <input matInput placeholder="Enter your name" name="username" [(ngModel)]="username">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Enter your password" value="" name="password" type="password" [(ngModel)]="password">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+  <span *ngIf="show"> </span>
+</form>

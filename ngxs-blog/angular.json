@@ -93,19 +93,8 @@
             "styles": ["src/styles.scss"],
             "scripts": []
           }
-        },
-        "deploy": {
-          "builder": "@angular/fire:deploy",
-          "options": {
-            "prerender": false,
-            "ssr": false,
-            "browserTarget": "ngxs-blog:build:production",
-            "firebaseProject": "ngxs-blog",
-            "firebaseHostingSite": "ngxs-blog"
-          }
         }
       }
     }
-  },
-  "defaultProject": "ngxs-blog"
+  }
 }

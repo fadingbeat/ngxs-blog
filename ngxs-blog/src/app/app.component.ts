@@ -1,7 +1,4 @@
-import { Component, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import * as EventEmitter from 'events';
-import { Post } from './post/models/post';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
