@@ -4,9 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { PageModel } from './models/models';
 import { Observable, throwError } from 'rxjs';
 import { LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
 import { Router } from '@angular/router';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacyDialog } from '@angular/material/legacy-dialog';
 import { catchError, concatMap } from 'rxjs/operators';
 import { ConfirmationWindowComponent } from 'src/app/shared/confirmation-window/confirmation-window.component';
 
@@ -33,9 +33,9 @@ export class PostListComponent implements OnInit {
 
   constructor(
     private readonly postListService: PostListService,
-    private snackBar: MatSnackBar,
+    private snackBar: MatLegacySnackBar,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatLegacySnackBar
   ) {}
 
   ngOnInit(): void {
