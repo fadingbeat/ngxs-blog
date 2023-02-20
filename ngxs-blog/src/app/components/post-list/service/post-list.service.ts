@@ -37,4 +37,8 @@ export class PostListService {
       }
     );
   }
+
+  deletePost(id: number) {
+    return this.http.delete(`${environment.mockUrl}${GET_POSTS}/${id}`);
+  }
 }
