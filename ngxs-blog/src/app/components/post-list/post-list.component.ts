@@ -1,12 +1,17 @@
+import { DeletePost, GetPosts } from './../post/state/post.actions';
+import { Store } from '@ngxs/store';
 import { PostListService } from './service/post-list.service';
 import { Post } from './../post/models/post';
 import { Component, OnInit } from '@angular/core';
 import { PageModel } from './models/models';
 import { Observable, throwError } from 'rxjs';
 import { LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
 import { Router } from '@angular/router';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import {
+  MatLegacyDialog,
+  MatLegacyDialogRef,
+} from '@angular/material/legacy-dialog';
 import { catchError, concatMap } from 'rxjs/operators';
 import { ConfirmationWindowComponent } from 'src/app/shared/confirmation-window/confirmation-window.component';
 
@@ -33,9 +38,10 @@ export class PostListComponent implements OnInit {
 
   constructor(
     private readonly postListService: PostListService,
-    private snackBar: MatSnackBar,
+    private snackBar: MatLegacySnackBar,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatLegacyDialog,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
@@ -85,28 +91,29 @@ export class PostListComponent implements OnInit {
     this.router.navigateByUrl(`create`);
   }
   ///// OTKOMENTIRATI KADA NAPRAVIM METODU ZA DELETE!
-  // deletePost(id: number) {
-  //   const dialogRef = this.dialog.open(ConfirmationWindowComponent, {
-  //     width: '400px',
-  //     autoFocus: false,
-
-  //     data: {
-  //       question: 'ARE YOU SURE YOU WANT TO DELETE THE CONTACT?',
-  //     },
-  //   });
-
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     if (result.confirmed) {
-  //       this.contactsService.deleteContact(id).subscribe(() => {
-  //         this.snackBar.open('CONTACT SUCCESSFULLY DELETED', 'SUCCESS', {
-  //           horizontalPosition: 'center',
-  //           verticalPosition: 'top',
-  //           duration: 5000,
-  //         });
-  //       });
-  //     }
-  //   });
-  // }
+  deletePost(id: number): void {
+    const dialogRef = this.dialog.open(ConfirmationWindowComponent, {
+      width: '400px',
+      autoFocus: false,
+      panelClass: 'confirmation-dialog-container',
+      data: {
+        question: 'ARE YOU SURE YOU WANT TO DELETE THE ITEM?',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.confirmed) {
+        this.store.dispatch(new DeletePost(id)).subscribe(() => {
+          this.store.dispatch(new GetPosts());
+          this.snackBar.open('POST DELETED', 'SUCCESS', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            duration: 5000,
+          });
+          this.router.navigateByUrl(``);
+        });
+      }
+    });
+  }
 
   editPost(id: number) {
     this.router.navigateByUrl(`edit/${id}`);

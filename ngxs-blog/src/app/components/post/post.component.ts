@@ -12,7 +12,7 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Post } from './models/post';
 import { AddBlogPost, UpdateBlogPost } from './state/post.actions';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StateReset } from 'ngxs-reset-plugin';
@@ -30,7 +30,7 @@ export class PostComponent implements OnInit, OnDestroy {
   constructor(
     private fb: UntypedFormBuilder,
     private store: Store,
-    private snackBar: MatSnackBar,
+    private snackBar: MatLegacySnackBar,
     private route: ActivatedRoute,
     private router: Router,
     private postService: BlogPostService

@@ -1,8 +1,9 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import axios from 'axios';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatLegacySnackBar
   ) {}
   username: string = '';
   password: string = '';
