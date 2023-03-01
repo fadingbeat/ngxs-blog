@@ -1,52 +1,58 @@
-
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import axios from 'axios';
-import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
+import { Subscription } from 'rxjs';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { StorageService } from 'src/app/core/services/storage/storage.service';
+import { ToastService } from 'src/app/core/services/toast/toast.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnDestroy {
+  private loginSub: Subscription | undefined;
+
   constructor(
-    private httpClient: HttpClient,
+    private fb: FormBuilder,
+    private auth: AuthenticationService,
     private router: Router,
-    private snackBar: MatLegacySnackBar
+    private toast: ToastService,
+    private ss: StorageService
   ) {}
-  username: string = '';
-  password: string = '';
-  show: boolean = false;
-  submit() {
-    axios
-      .post('http://localhost:1337/api/auth/local', {
-        identifier: this.username,
-        password: this.password,
-      })
-      .then((response) => {
-        console.log('User profile', response.data.user);
-        console.log('User token', response.data.jwt);
-        this.router.navigate(['./home']);
-      })
 
-      .catch((error) => {
-        const errorMessage = error.response.data.error.message;
-        this.snackBar.open(errorMessage, 'ERROR', {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-          duration: 5000,
-        });
-      });
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
+  });
 
-    this.clear();
-  }
-  clear() {
-    this.username = '';
-    this.password = '';
-    this.show = true;
+  ngOnDestroy(): void {
+    if (this.loginSub) {
+      this.loginSub.unsubscribe();
+    }
   }
 
-  ngOnInit(): void {}
+  login() {
+    const credentials = this.loginForm.value;
+
+    this.loginSub = this.auth
+      .login(credentials.email!, credentials.password!)
+      .subscribe(
+        (resp) => {
+          this.loginForm.reset();
+
+          this.auth.persistUser(resp);
+
+          this.toast.showSuccess('Successfully logged in.');
+
+          const attemptedRoute = this.ss.getItem('attemptedRoute');
+          this.ss.removeItem('attemptedRoute');
+          this.router.navigateByUrl(attemptedRoute || '/');
+        },
+        () => {
+          this.toast.showDanger('Login unsuccessful. Check your credentials.');
+        }
+      );
+  }
 }

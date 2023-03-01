@@ -95,9 +95,8 @@ export class PostComponent implements OnInit, OnDestroy {
             verticalPosition: 'top',
             duration: 5000,
           });
-
-          // this.router.navigateByUrl(`search`);
         });
     }
+    this.router.navigateByUrl(`home`);
   }
 }

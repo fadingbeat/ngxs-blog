@@ -1,3 +1,4 @@
+import { LoginComponent } from './components/login/login/login.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -22,6 +23,8 @@ import { PostComponent } from './components/post/post.component';
 import { MatLegacyPaginatorModule } from '@angular/material/legacy-paginator';
 import { MatLegacyTableModule } from '@angular/material/legacy-table';
 import { MatLegacyDialogModule } from '@angular/material/legacy-dialog';
+import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
+import { ResetPasswordComponent } from './components/login/reset-password/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,8 @@ import { MatLegacyDialogModule } from '@angular/material/legacy-dialog';
     PostComponent,
     PostListComponent,
     HighlightDirective,
+    LoginComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +55,7 @@ import { MatLegacyDialogModule } from '@angular/material/legacy-dialog';
     MatLegacyPaginatorModule,
     MatLegacyTableModule,
     MatLegacyDialogModule,
+    MatLegacyFormFieldModule,
   ],
   providers: [CacheService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
