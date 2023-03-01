@@ -4,6 +4,7 @@
 
 export const environment = {
   mockUrl: 'http://localhost:3000/ngxs-blog',
+  strapiUrl: 'http://localhost:1337/api',
   production: false,
 };
 
