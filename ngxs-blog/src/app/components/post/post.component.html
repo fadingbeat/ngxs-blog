@@ -1,8 +1,3 @@
-<!-- <mat-card *ngIf="post">
-  <h2>post.title</h2>
-  <h3>post.description</h3>
-  <p>post.content</p>
-</mat-card> -->
 <form [formGroup]="postForm" (ngSubmit)="onSave()">
   <div>
     <mat-card>
@@ -18,7 +13,8 @@
         <mat-label>Content</mat-label>
         <textarea matInput formControlName="content"></textarea>
       </mat-form-field>
-      <button appearance=" fill" mat-raised-button color="accent">Save post</button>
+      <button type="submit" appearance=" fill" mat-raised-button color="accent" [disabled]="!postForm.valid">Save
+        post</button>
     </mat-card>
   </div>
 
