@@ -8,7 +8,11 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Post } from './models/post';
 import { AddBlogPost, UpdateBlogPost } from './state/post.actions';
@@ -40,9 +44,9 @@ export class PostComponent implements OnInit, OnDestroy {
 
   createPostForm() {
     this.postForm = this.fb.group({
-      title: [''],
-      description: [''],
-      content: [''],
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      content: ['', [Validators.required]],
     });
   }
 

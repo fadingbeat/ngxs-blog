@@ -1,22 +1,3 @@
-<!-- <h5><u><i>Welcome to the login page</i></u></h5>
-<form [formGroup]="loginForm" class="component-display">
-  <mat-form-field appearance="fill">
-    <mat-label>User Name</mat-label>
-    <input matInput placeholder="Enter your username" name="email" formControlName="email">
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Password</mat-label>
-    <input matInput placeholder="Enter your password" value="" name="password" type="password"
-      formControlName="password">
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="login()">Submit</button>
-</form>
-<div>
-  <button (click)="forgotPass()">
-    <h6>Forgot password?</h6>
-  </button>
-</div> -->
-
 <div class="d-flex flex-column align-items-center">
   <app-title title="Login" subtitle="Login to take a quiz"></app-title>
   <form class="d-flex flex-column align-items-center mt-3" [formGroup]="loginForm" (ngSubmit)="login()">

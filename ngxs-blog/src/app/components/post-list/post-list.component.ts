@@ -90,7 +90,7 @@ export class PostListComponent implements OnInit {
   navigateToAdd() {
     this.router.navigateByUrl(`create`);
   }
-  ///// OTKOMENTIRATI KADA NAPRAVIM METODU ZA DELETE!
+
   deletePost(id: number): void {
     const dialogRef = this.dialog.open(ConfirmationWindowComponent, {
       width: '400px',

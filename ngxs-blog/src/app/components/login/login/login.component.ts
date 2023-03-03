@@ -1,10 +1,10 @@
+import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { StorageService } from 'src/app/core/services/storage/storage.service';
-import { ToastService } from 'src/app/core/services/toast/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +18,8 @@ export class LoginComponent implements OnDestroy {
     private fb: FormBuilder,
     private auth: AuthenticationService,
     private router: Router,
-    private toast: ToastService,
-    private ss: StorageService
+    private ss: StorageService,
+    private snackBar: MatLegacySnackBar
   ) {}
 
   loginForm = this.fb.group({
@@ -44,14 +44,24 @@ export class LoginComponent implements OnDestroy {
 
           this.auth.persistUser(resp);
 
-          this.toast.showSuccess('Successfully logged in.');
+          this.snackBar.open('Successfully logged in', 'SUCCESS', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            duration: 5000,
+          });
 
           const attemptedRoute = this.ss.getItem('attemptedRoute');
           this.ss.removeItem('attemptedRoute');
-          this.router.navigateByUrl(attemptedRoute || '/');
+          this.router.navigateByUrl(attemptedRoute || 'home');
         },
-        () => {
-          this.toast.showDanger('Login unsuccessful. Check your credentials.');
+        (error) => {
+          const errorMessage = error.error.error.message;
+
+          this.snackBar.open(errorMessage, 'ERROR', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            duration: 5000,
+          });
         }
       );
   }

@@ -24,7 +24,7 @@ import { MatLegacyPaginatorModule } from '@angular/material/legacy-paginator';
 import { MatLegacyTableModule } from '@angular/material/legacy-table';
 import { MatLegacyDialogModule } from '@angular/material/legacy-dialog';
 import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
-import { ResetPasswordComponent } from './components/login/reset-password/reset-password/reset-password.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,6 @@ import { ResetPasswordComponent } from './components/login/reset-password/reset-
     PostListComponent,
     HighlightDirective,
     LoginComponent,
-    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +40,7 @@ import { ResetPasswordComponent } from './components/login/reset-password/reset-
     NgxsModule.forRoot([PostState]),
     NgxsLoggerPluginModule.forRoot(),
     NgxsResetPluginModule.forRoot(),
+    NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule,
