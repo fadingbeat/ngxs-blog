@@ -25,6 +25,7 @@ import { MatLegacyTableModule } from '@angular/material/legacy-table';
 import { MatLegacyDialogModule } from '@angular/material/legacy-dialog';
 import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from './core/components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PostListComponent,
     HighlightDirective,
     LoginComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

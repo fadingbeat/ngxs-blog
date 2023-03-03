@@ -1,0 +1,17 @@
+<mat-toolbar class="nav-toolbar" color="primary">
+  <mat-icon>verified_user</mat-icon>
+  <span><a href="">NGXS Blog</a></span>
+
+  <div class="d-flex flex-row vw-95 justify-content-end align-items-end mx-auto">
+    <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-success text-white avatar mr-2 d-flex align-items-center justify-content-center"
+        *ngIf="isLoggedIn" placement="left" ngbTooltip="Welcome {{username}}" routerLink="/home">
+        <h3 class="avatar-text">{{avatarInitial | uppercase}}</h3>
+      </div>
+      <button routerLink="/auth/signup" type="button" class="m-1 btn app-bg-grey btn-sm" *ngIf="!isLoggedIn">Sign
+        Up</button>
+      <button routerLink="/" type="button" class="m-1 btn app-bg-grey btn-sm" *ngIf="!isLoggedIn">Login</button>
+      <button (click)="logout()" type="button" class="m-1 btn app-bg-grey btn-sm" *ngIf="isLoggedIn">Logout</button>
+    </div>
+  </div>
+</mat-toolbar>
