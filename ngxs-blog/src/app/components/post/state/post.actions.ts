@@ -16,6 +16,12 @@ export class GetPosts {
   constructor() {}
 }
 
+export class GetPostById {
+  static readonly type = '[Posts] GetPostByID';
+
+  constructor(public id: number) {}
+}
+
 export class DeletePost {
   static readonly type = '[Post] Delete';
 

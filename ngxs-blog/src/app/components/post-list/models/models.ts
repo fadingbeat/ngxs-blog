@@ -8,10 +8,7 @@ export interface PageModel<T> {
 
 export interface TableInfo {
   page: number;
-  size: number;
-  id: number;
-  title: string;
-  description: string;
-  content: string;
-  datePosted: string;
+  pageCount: number;
+  pageSize: number;
+  total: number;
 }
