@@ -1,4 +1,8 @@
-import { DeletePost, GetPosts } from './../post/state/post.actions';
+import {
+  DeletePost,
+  GetPosts,
+  GetPostById,
+} from './../post/state/post.actions';
 import { Store } from '@ngxs/store';
 import { PostListService } from './service/post-list.service';
 import { Post } from './../post/models/post';
@@ -46,15 +50,15 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinnerLoading = true;
-    this.dataSource$ = this.postListService.getPosts();
+
     this.getPostsData();
     this.spinnerLoading = false;
   }
 
   getPostsData() {
-    this.dataSource$.subscribe(
-      (res) => ((this.posts = res), console.log('posts', this.posts))
-    );
+    this.store.dispatch(new GetPosts()).subscribe((res) => {
+      (this.posts = res.post.posts), console.log('posts', this.posts);
+    });
   }
 
   onPaginateChange(page: PageEvent) {
@@ -109,7 +113,7 @@ export class PostListComponent implements OnInit {
             verticalPosition: 'top',
             duration: 5000,
           });
-          this.router.navigateByUrl(``);
+          this.router.navigateByUrl(`home`);
         });
       }
     });

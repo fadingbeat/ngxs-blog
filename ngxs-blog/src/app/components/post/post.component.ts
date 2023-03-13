@@ -13,9 +13,14 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { Store } from '@ngxs/store';
+import { Selector, Store } from '@ngxs/store';
 import { Post } from './models/post';
-import { AddBlogPost, UpdateBlogPost } from './state/post.actions';
+import {
+  AddBlogPost,
+  UpdateBlogPost,
+  GetPosts,
+  GetPostById,
+} from './state/post.actions';
 import { MatLegacySnackBar } from '@angular/material/legacy-snack-bar';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -27,6 +32,7 @@ import { StateReset } from 'ngxs-reset-plugin';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit, OnDestroy {
+  // @Selector getSelectedPost:
   selectedPostId: number;
   selectedPost: Observable<Post>;
   editPost: boolean = false;
@@ -57,21 +63,21 @@ export class PostComponent implements OnInit, OnDestroy {
 
     const editMode = this.router.url.startsWith('/edit');
     if (editMode) {
-      this.selectedPost = this.postService.getPostById(this.selectedPostId);
-
-      this.selectedPost.subscribe((res: Post) => {
-        this.editPost = true;
-        this.editSelectedPost(res);
-      });
+      this.store
+        .dispatch(new GetPostById(this.selectedPostId))
+        .subscribe((res) => {
+          this.editPost = true;
+          this.editSelectedPost(res.post.selectedPost.data);
+        });
     }
   }
 
-  editSelectedPost(post: Post) {
+  editSelectedPost(data: Post) {
     this.postForm.patchValue({
-      id: post.id,
-      title: post.title,
-      description: post.description,
-      content: post.content,
+      id: data.id,
+      title: data.attributes.title,
+      description: data.attributes.description,
+      content: data.attributes.content,
     });
   }
 
@@ -102,5 +108,6 @@ export class PostComponent implements OnInit, OnDestroy {
         });
     }
     this.router.navigateByUrl(`home`);
+    this.store.dispatch(new GetPosts());
   }
 }

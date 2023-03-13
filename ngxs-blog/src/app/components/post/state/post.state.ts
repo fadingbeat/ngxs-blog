@@ -9,28 +9,36 @@ import {
   UpdateBlogPost,
   GetPosts,
   DeletePost,
+  GetPostById,
 } from './post.actions';
 import { tap } from 'rxjs/operators';
 
 export interface BlogPostStateModel {
   posts: any;
-  selectedPost: Post[];
+  selectedPost: Post;
   tableData: TableInfo;
 }
 
 @State<BlogPostStateModel>({
   name: 'post',
   defaults: {
-    posts: null,
-    selectedPost: [],
+    posts: [],
+    selectedPost: {
+      id: 0,
+      attributes: {
+        createdAt: '',
+        updatedAt: '',
+        publishedAt: '',
+        title: '',
+        content: '',
+        description: '',
+      },
+    },
     tableData: {
       page: 1,
-      size: 10,
-      id: 0,
-      title: '',
-      description: '',
-      content: '',
-      datePosted: '',
+      pageCount: 5,
+      pageSize: 10,
+      total: 0,
     },
   },
 })
@@ -55,10 +63,10 @@ export class PostState {
   @Action(AddBlogPost)
   addBlogPost(ctx: StateContext<BlogPostStateModel>, action: AddBlogPost) {
     const state = ctx.getState();
-
+    console.log('state', state);
     ctx.setState({
       ...state,
-      selectedPost: [...state.selectedPost, action.payload],
+      selectedPost: action.payload,
     });
     return this.blogPostService.createBlogPost(action.payload);
   }
@@ -69,7 +77,7 @@ export class PostState {
 
     ctx.setState({
       ...state,
-      selectedPost: [...state.selectedPost, action.payload],
+      selectedPost: action.payload,
     });
     return this.blogPostService.editBlogPost(action.payload, action.id);
   }
@@ -80,6 +88,22 @@ export class PostState {
     return this.postListService.getPosts(state.tableData).pipe(
       tap((result) => {
         setState({ ...state, posts: result });
+      })
+    );
+  }
+
+  @Action(GetPostById)
+  getPostById(
+    { getState, setState }: StateContext<BlogPostStateModel>,
+    { id }: GetPostById
+  ) {
+    return this.blogPostService.getPostById(id).pipe(
+      tap((result: Post) => {
+        const state = getState();
+        setState({
+          ...state,
+          selectedPost: result,
+        });
       })
     );
   }

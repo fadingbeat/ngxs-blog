@@ -1,7 +1,12 @@
 export interface Post {
-  id?: string;
-  title: string;
-  description: string;
-  content: string;
-  datePosted: Date;
+  id?: number;
+  attributes: {
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    title: string;
+    description: string;
+    content: string;
+    // datePosted: Date;
+  };
 }
